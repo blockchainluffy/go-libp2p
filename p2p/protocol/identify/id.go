@@ -496,7 +496,7 @@ func newStreamAndNegotiate(ctx context.Context, c network.Conn, proto protocol.I
 }
 
 func (ids *idService) identifyConn(c network.Conn) error {
-	ctx, cancel := context.WithTimeout(context.Background(), ids.timeout)
+	ctx, cancel := context.WithTimeout(ids.ctx, ids.timeout)
 	defer cancel()
 	s, err := newStreamAndNegotiate(network.WithAllowLimitedConn(ctx, "identify"), c, ID, ids.timeout)
 	if err != nil {
